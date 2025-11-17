@@ -7,7 +7,7 @@ Clone the repository
 
 
 Create a .env file in the project root
-Use the provided .env.template as a guide:
+Use the provided .envTemplate as a guide:
 
 Add your own database credentials inside .env preferable MySQL:
 If you’re using a different database, you might need to reconfigure the DatabaseConnection class since it’s currently set up for MySQL.
