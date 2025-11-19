@@ -324,7 +324,16 @@ public class Library {
       System.out.println("No books available in the library.");
     } else {
       for (Book book : allBooksList) {
-        book.displayBook();
+        // Show book type in the display
+        String bookType = (book instanceof PhysicalBook) ? "Physical Book" : "E-Book";
+        System.out.printf("ID: %d | %s by %s | Genre: %s | Type: %s | Status: %s | Added by: %s%n",
+            book.getBookId(),
+            book.getTitle(),
+            book.getAuthor(),
+            book.getGenre(),
+            bookType,
+            book.getIsBorrowed() ? "Borrowed by " + book.getBorrowedBy() : "Available",
+            book.getAddedBy());
       }
     }
   }
