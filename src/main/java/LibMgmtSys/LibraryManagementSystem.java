@@ -1,13 +1,8 @@
 package LibMgmtSys;
 
-import BookPk.EBook;
-import BookPk.Library;
-import BookPk.PhysicalBook;
-import DatabasePk.DatabaseConnection;
-import ExceptionPk.BookNotFoundException;
-import ExceptionPk.InvalidGenreException;
-import ExceptionPk.UnauthorizedActionException;
-import ExceptionPk.UserNotFoundException;
+import BookPk.*;
+import DatabasePk.*;
+import ExceptionPk.*;
 import GenrePk.Genre;
 import UserPk.User;
 

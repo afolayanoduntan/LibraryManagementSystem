@@ -1,8 +1,6 @@
 package BookPk;
 
-import ExceptionPk.BookNotFoundException;
-import ExceptionPk.UnauthorizedActionException;
-import ExceptionPk.UserNotFoundException;
+import ExceptionPk.*;
 
 public interface Borrowable {
   void borrowBook(String userId) throws BookNotFoundException, UserNotFoundException;
