@@ -1,11 +1,12 @@
-# Database Configuration Template
-# Copy this file to .env and fill in your credentials
+Database Template
 
-DB_URL=jdbc:mysql://localhost:3306/library_management
-DB_USERNAME=your_username_here
-DB_PASSWORD=your_password_here
+Clone this file into.env and write in your credentials.
 
-# For different database types:
-# DB_URL=jdbc:mysql://localhost:3306/your_database_name
-# DB_URL=jdbc:postgresql://localhost:5432/your_database_name
-# DB_URL=jdbc:sqlite:library.db
+DBURL=jdbc:mysql://localhost:3306/librarymanagement
+DBUSERNAME=yourusernamehere
+DBPASSWORD=yourpasswordhere
+
+In the case of other forms of databases:
+DBURL=jdbc:mysql://localhost:3306/yourdatabasename
+DBURL=jdbc:postgresql://localhost:5432/yourdatabasename
+DB_URL=jdbc:sqlite:library.db
