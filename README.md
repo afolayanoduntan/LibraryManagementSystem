@@ -1,21 +1,15 @@
-# LibraryManagementSystem
-A Library Management System built in Java, featuring book management, and borrowing/return tracking using maven
+LibraryManagementSystem
 
-🛠️ Setup Instructions
+A Java-based Library Management System that establishes the book management, and book lending and borrowing tracking through maven.
+
+Setup Instructions:
 
 Clone the repository
 
+Put together a .env file at the project root base The following is the example of the provided .envTemplate:
 
-Create a .env file in the project root
-Use the provided .envTemplate as a guide:
+Insert your own database credentials within .env favourable MySQL: In the event that you have a different database, you may need to change up the DatabaseConnection class as it is currently configured to use MySQL.
 
-Add your own database credentials inside .env preferable MySQL:
-If you’re using a different database, you might need to reconfigure the DatabaseConnection class since it’s currently set up for MySQL.
+DB_URL= jdbc: mysql://localhost: 3306/library management db DB_USERNAME= root DB_PASSWORD= your password.
 
-DB_URL=jdbc:mysql://localhost:3306/library_management
-DB_USERNAME=root
-DB_PASSWORD=yourpassword
-
-
-Run the project
-Make sure your MySQL server is running before starting the app.
+Start the app Have your MySQL server up and running before starting the app.
