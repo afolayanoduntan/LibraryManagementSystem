@@ -25,8 +25,8 @@ public class DatabaseConnection {
     File envFile = new File(".env");
 
     if (!envFile.exists()) {
-      System.out.println("⚠️  .env file not found. Using default values or system environment variables.");
-      System.out.println("💡 Create a .env file from .env.template for custom configuration");
+      System.out.println(".env file not found. Using default values or system environment variables.");
+      System.out.println("Create a .env file from .env.template for custom configuration");
       return;
     }
 
@@ -79,11 +79,11 @@ public class DatabaseConnection {
       try {
         connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         initializeDatabase(); // Initialize tables when first connecting
-        System.out.println("✅ Database connection established successfully!");
+        System.out.println("Database connection established successfully!");
       } catch (SQLException e) {
-        System.out.println("❌ Database connection failed: " + e.getMessage());
-        System.out.println("💡 Please check your .env file configuration");
-        System.out.println("   Make sure your database is running and credentials are correct");
+        System.out.println("Database connection failed: " + e.getMessage());
+        System.out.println("Please check your .env file configuration");
+        System.out.println("Make sure your database is running and credentials are correct");
         throw new RuntimeException("Failed to connect to database", e);
       }
     }
@@ -151,10 +151,10 @@ public class DatabaseConnection {
       stmt.execute(createBorrowingRecordsTable);
       stmt.execute(createActivityLogTable);
 
-      System.out.println("✅ Database tables initialized successfully!");
+      System.out.println("Database tables initialized successfully!");
 
     } catch (SQLException e) {
-      System.out.println("❌ Error initializing database tables: " + e.getMessage());
+      System.out.println("Error initializing database tables: " + e.getMessage());
       // Don't throw exception - the app might still work with existing tables
     }
   }
@@ -174,10 +174,10 @@ public class DatabaseConnection {
   // Optional: Test connection method
   public static boolean testConnection() {
     try (Connection testConn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-      System.out.println("✅ Database connection test: SUCCESS");
+      System.out.println("Database connection test: SUCCESS");
       return true;
     } catch (SQLException e) {
-      System.out.println("❌ Database connection test: FAILED");
+      System.out.println("Database connection test: FAILED");
       System.out.println("Error: " + e.getMessage());
       return false;
     }

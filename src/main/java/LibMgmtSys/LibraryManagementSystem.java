@@ -16,7 +16,7 @@ public class LibraryManagementSystem {
         try {
             DatabaseConnection.testConnection();
         } catch (Exception e) {
-            System.out.println("\n❌ Database connection failed!");
+            System.out.println("\n Database connection failed!");
             System.out.println("Please check your .env file configuration.");
             System.out.println("Make sure you have a .env file with:");
             System.out.println("DB_URL=jdbc:mysql://localhost:3306/library_management");
