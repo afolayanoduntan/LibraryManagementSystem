@@ -58,14 +58,15 @@ public class LibraryManagementSystem {
             System.out.println("1. Add Physical Book");
             System.out.println("2. Add E-Book");
             System.out.println("3. Display Books");
-            System.out.println("4. Borrow a Book");
-            System.out.println("5. Return a Book");
-            System.out.println("6. Remove a Book");
-            System.out.println("7. View Activity Log");
-            System.out.println("8. View Overdue Books");
-            System.out.println("9. View Borrowing History");
-            System.out.println("10. Switch User");
-            System.out.println("11. Exit");
+            System.out.println("4. Search for a Book");
+            System.out.println("5. Borrow a Book");
+            System.out.println("6. Return a Book");
+            System.out.println("7. Remove a Book");
+            System.out.println("8. View Activity Log");
+            System.out.println("9. View Overdue Books");
+            System.out.println("10. View Borrowing History");
+            System.out.println("11. Switch User");
+            System.out.println("12. Exit");
             System.out.print("Enter choice: ");
 
             try {
@@ -94,27 +95,34 @@ public class LibraryManagementSystem {
                         library.displayBooks();
                         break;
                     case 4:
+                        System.out.print("Enter letter to search (A-Z): ");
+                        String input = scanner.nextLine();
+                        if (!input.isEmpty()) {
+                        library.searchBooksByLetter(input.charAt(0));
+                        }
+                      break;
+                    case 5:
                         System.out.print("Enter Book ID to borrow: ");
                         library.borrowBook(Integer.parseInt(scanner.nextLine()), currentUserId);
                         break;
-                    case 5:
+                    case 6:
                         System.out.print("Enter Book ID to return: ");
                         library.returnBook(Integer.parseInt(scanner.nextLine()), currentUserId);
                         break;
-                    case 6:
+                    case 7:
                         System.out.print("Enter Book ID to remove: ");
                         library.removeBook(Integer.parseInt(scanner.nextLine()), currentUserId);
                         break;
-                    case 7:
+                    case 8:
                         library.viewActivityLog();
                         break;
-                    case 8:
+                    case 9:
                         library.displayOverdueBooks();
                         break;
-                    case 9:
+                    case 10:
                         library.displayBorrowingHistory();
                         break;
-                    case 10:
+                    case 11:
                         currentUserId = null;
                         while (currentUserId == null) {
                             System.out.print("Enter your 8-digit User ID: ");
@@ -127,7 +135,7 @@ public class LibraryManagementSystem {
                             }
                         }
                         break;
-                    case 11:
+                    case 12:
                         System.out.println("Exiting Library System.");
                         DatabaseConnection.closeConnection();
                         scanner.close();

@@ -152,6 +152,7 @@ public class Library {
       System.out.println("Error adding book to database: " + e.getMessage());
     }
   }
+
   public Book findBookById(Integer bookId) {
     Book book = bookCache.get(bookId);
     if (book != null) {
@@ -340,13 +341,13 @@ public class Library {
 
   public void displayOverdueBooks() {
     String sql = """
-            SELECT br.record_id, b.title, b.book_id, u.user_id, u.username, br.borrowed_at, br.due_date 
-            FROM borrowing_records br
-            JOIN books b ON br.book_id = b.book_id
-            JOIN users u ON br.user_id = u.user_id
-            WHERE br.returned_at IS NULL AND br.due_date < NOW()
-            ORDER BY br.due_date
-            """;
+        SELECT br.record_id, b.title, b.book_id, u.user_id, u.username, br.borrowed_at, br.due_date 
+        FROM borrowing_records br
+        JOIN books b ON br.book_id = b.book_id
+        JOIN users u ON br.user_id = u.user_id
+        WHERE br.returned_at IS NULL AND br.due_date < NOW()
+        ORDER BY br.due_date
+        """;
 
     try (Statement stmt = connection.createStatement();
          ResultSet rs = stmt.executeQuery(sql)) {
@@ -375,13 +376,13 @@ public class Library {
 
   public void displayBorrowingHistory() {
     String sql = """
-            SELECT b.title, u.username, br.borrowed_at, br.due_date, br.returned_at
-            FROM borrowing_records br
-            JOIN books b ON br.book_id = b.book_id
-            JOIN users u ON br.user_id = u.user_id
-            ORDER BY br.borrowed_at DESC
-            LIMIT 20
-            """;
+        SELECT b.title, u.username, br.borrowed_at, br.due_date, br.returned_at
+        FROM borrowing_records br
+        JOIN books b ON br.book_id = b.book_id
+        JOIN users u ON br.user_id = u.user_id
+        ORDER BY br.borrowed_at DESC
+        LIMIT 20
+        """;
 
     try (Statement stmt = connection.createStatement();
          ResultSet rs = stmt.executeQuery(sql)) {
@@ -407,12 +408,12 @@ public class Library {
 
   public void viewActivityLog() {
     String sql = """
-            SELECT al.activity_description, al.activity_date, u.username 
-            FROM activity_log al 
-            LEFT JOIN users u ON al.user_id = u.user_id 
-            ORDER BY al.activity_date DESC 
-            LIMIT 20
-            """;
+        SELECT al.activity_description, al.activity_date, u.username 
+        FROM activity_log al 
+        LEFT JOIN users u ON al.user_id = u.user_id 
+        ORDER BY al.activity_date DESC 
+        LIMIT 20
+        """;
 
     try (Statement stmt = connection.createStatement();
          ResultSet rs = stmt.executeQuery(sql)) {
@@ -505,5 +506,88 @@ public class Library {
 
   public int getUserCount() {
     return userCache.size();
+  }
+
+  //Sorting Books
+  public void sortBooksAlphabetically() {
+    allBooksList.sort(new Comparator<Book>() {
+      @Override
+      public int compare(Book b1, Book b2) {
+        return b1.getTitle().compareToIgnoreCase(b2.getTitle());
+      }
+    });
+    System.out.println("Books sorted alphabetically by title.");
+  }
+
+  // Binary search implementation for first occurrence
+  private int binarySearchFirstOccurrence(String targetLetter) {
+    int left = 0;
+    int right = allBooksList.size() - 1;
+    int result = -1;
+
+    while (left <= right) {
+      int mid = left + (right - left) / 2;
+      Book midBook = allBooksList.get(mid);
+      String midLetter = midBook.getTitle().substring(0, 1).toUpperCase();
+      int comparison = midLetter.compareTo(targetLetter);
+
+      if (comparison == 0) {
+        result = mid;
+        right = mid - 1;
+      } else if (comparison < 0) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+    return result;
+  }
+
+  // Method to get books starting with a specific letter
+  public List<Book> getBooksStartingWith(char letter) {
+    List<Book> result = new ArrayList<>();
+    String targetLetter = String.valueOf(letter).toUpperCase();
+
+    sortBooksAlphabetically();
+
+    int startIndex = binarySearchFirstOccurrence(targetLetter);
+
+    if (startIndex != -1) {
+      for (int i = startIndex; i < allBooksList.size(); i++) {
+        Book book = allBooksList.get(i);
+        String firstLetter = book.getTitle().substring(0, 1).toUpperCase();
+
+        if (firstLetter.equals(targetLetter)) {
+          result.add(book);
+        } else {
+          break;
+        }
+      }
+    }
+    return result;
+  }
+
+
+  // Search books by letter
+  public void searchBooksByLetter(char letter) {
+    if (!Character.isLetter(letter)) {
+      System.out.println("Please enter a valid letter (A-Z).");
+      return;
+    }
+
+    List<Book> books = getBooksStartingWith(letter);
+
+    if (books.isEmpty()) {
+      System.out.println("No books found starting with letter '" + letter + "'.");
+    } else {
+      System.out.println("\n=== BOOKS STARTING WITH '" + letter + "' ===");
+      for (Book book : books) {
+        System.out.printf("  %s by %s (ID: %d)%n",
+            book.getTitle(),
+            book.getAuthor(),
+            book.getBookId());
+      }
+      System.out.println("Found " + books.size() + " book(s).");
+    }
   }
 }

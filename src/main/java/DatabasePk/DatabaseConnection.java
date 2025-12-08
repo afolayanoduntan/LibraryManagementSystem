@@ -55,9 +55,9 @@ public class DatabaseConnection {
           System.setProperty(key, value);
         }
       }
-      System.out.println("✅ Loaded configuration from .env file");
+      System.out.println("Loaded configuration from .env file");
     } catch (IOException e) {
-      System.out.println("❌ Error reading .env file: " + e.getMessage());
+      System.out.println("Error reading .env file: " + e.getMessage());
     }
   }
 
