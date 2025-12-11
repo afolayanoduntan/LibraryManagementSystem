@@ -35,12 +35,10 @@ public class DatabaseConnection {
       while ((line = reader.readLine()) != null) {
         line = line.trim();
 
-        // Skip empty lines and comments
         if (line.isEmpty() || line.startsWith("#")) {
           continue;
         }
 
-        // Split key and value
         String[] parts = line.split("=", 2);
         if (parts.length == 2) {
           String key = parts[0].trim();
@@ -51,7 +49,6 @@ public class DatabaseConnection {
             value = value.substring(1, value.length() - 1);
           }
 
-          // Set as system property for easy access
           System.setProperty(key, value);
         }
       }
@@ -90,7 +87,6 @@ public class DatabaseConnection {
     return connection;
   }
 
-  // ADD BACK THE INITIALIZE DATABASE METHOD
   private static void initializeDatabase() {
     try (Statement stmt = getConnection().createStatement()) {
 
@@ -171,7 +167,7 @@ public class DatabaseConnection {
     }
   }
 
-  // Optional: Test connection method
+  //Test connection method
   public static boolean testConnection() {
     try (Connection testConn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
       System.out.println("Database connection test: SUCCESS");

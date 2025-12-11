@@ -31,7 +31,7 @@ public class LibraryManagementSystem {
 
         System.out.println("=== LIBRARY MANAGEMENT SYSTEM ===");
 
-        // User.User login/setup
+        // login/setup
         while (currentUserId == null) {
             System.out.print("Enter your 8-digit User ID: ");
             String userId = scanner.nextLine();

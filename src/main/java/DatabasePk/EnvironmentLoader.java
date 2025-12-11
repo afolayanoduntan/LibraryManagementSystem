@@ -24,24 +24,21 @@ public class EnvironmentLoader {
       while ((line = reader.readLine()) != null) {
         line = line.trim();
 
-        // Skip empty lines and comments
         if (line.isEmpty() || line.startsWith("#")) {
           continue;
         }
 
-        // Split key and value
         String[] parts = line.split("=", 2);
         if (parts.length == 2) {
           String key = parts[0].trim();
           String value = parts[1].trim();
 
-          // Remove quotes if present
           if (value.startsWith("\"") && value.endsWith("\"")) {
             value = value.substring(1, value.length() - 1);
           }
 
           envVariables.put(key, value);
-          System.setProperty(key, value); // Also set as system property
+          System.setProperty(key, value);
         }
       }
       System.out.println("Loaded environment variables from .env file");
